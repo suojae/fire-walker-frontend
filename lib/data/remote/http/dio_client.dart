@@ -7,6 +7,7 @@ final class DioClient {
       : _dio = Dio(
     BaseOptions(
       baseUrl: 'https://www.sesacyujin.site:3000',
+      // baseUrl: 'http://172.17.0.2:3100',
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {'Content-Type': 'application/json'},
