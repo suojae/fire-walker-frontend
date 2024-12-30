@@ -2,41 +2,32 @@ syntax = "proto3";
 
 package step;
 
-// 서비스 정의
 service StepService {
   rpc RecordSteps(StepInput) returns (StepResponse);
-  rpc GetStepsByUuids(GetStepsByUuidsInput) returns (StepsResponse);
-  rpc StreamSteps(GetStepsByUuidsInput) returns (stream StepRecord); // Server-Side Streaming
-  rpc StreamUserSteps(stream StepInput) returns (StepResponse); // Client-Side Streaming
+  rpc GetStepsByUser(GetStepsInput) returns (StepsResponse);
+  rpc StreamSteps(GetStepsInput) returns (stream StepRecord);
+  rpc StreamUserSteps(stream StepInput) returns (stream StepResponse);
 }
 
-// 사용자 걸음수 기록 요청 메시지
 message StepInput {
-  string userId = 1; // 사용자 UUID
-  int32 steps = 2;   // 걸음수
-  string date = 3;   // 날짜
+  string userId = 1;
+  int32 steps = 2;
+  string date = 3;
 }
 
-// 응답 메시지 (성공 메시지)
 message StepResponse {
-  string message = 1; // 성공 메시지
+  string message = 1;
 }
 
-// 여러 사용자 걸음수 요청 메시지
-message GetStepsByUuidsInput {
-  repeated string userIds = 1; // 사용자 UUID 리스트
-  string date = 2;             // 특정 날짜
+message GetStepsInput {
+  string userId = 1;
 }
 
-// 여러 사용자 걸음수 응답 메시지
 message StepsResponse {
-  repeated StepRecord records = 1; // 걸음수 기록 리스트
+  repeated StepRecord records = 1;
 }
 
-// 단일 사용자 걸음수 기록
 message StepRecord {
-  string userId = 1;  // 사용자 UUID
-  string date = 2;    // 날짜
-  int32 steps = 3;    // 걸음수
-  int32 rank = 4;     // 랭킹 (옵션)
+  string date = 1;
+  int32 steps = 2;
 }
